@@ -45,11 +45,11 @@ public class ScheduledOrderDA {
     }
 
     public ResultSet selectRecord(String date){
-        String queryStr = "SELECT * FROM " + tableName + " WHERE  DATE_ORDER = '2017-04-08'";
+        String queryStr = "SELECT * FROM " + tableName + " WHERE  DATE_ORDER = ?";
         ResultSet rs = null;
         try{
             stmt = conn.prepareStatement(queryStr);
-            //stmt.setString(1,date);
+            stmt.setString(1,date);
             
             rs = stmt.executeQuery();
         }
