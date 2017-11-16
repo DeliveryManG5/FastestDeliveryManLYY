@@ -45,6 +45,7 @@ public class ScheduledOrderDA {
     }
 
     public ResultSet selectRecord(String date){
+        //Query
         String queryStr = "SELECT * FROM " + tableName + " WHERE  DATE_ORDER = ?";
         ResultSet rs = null;
         try{
