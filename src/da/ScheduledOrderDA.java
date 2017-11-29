@@ -59,4 +59,23 @@ public class ScheduledOrderDA {
         }
         return rs;
     }
+    
+    public ResultSet selectRecordWithLocation(String date, String selectedItem){
+        //Query
+        String queryStr = "SELECT F.OrderNO, F.customer_id, F.Date_Order, L.LocName, F.Address FROM FoodOrder F, Location L  WHERE F.LocID = L.LocID AND F.DATE_ORDER = ? AND L.LocName = ?";
+        
+        //String queryStr = "SELECT * FROM " + tableName + " WHERE  DATE_ORDER = ? GROUP BY LocName ";
+        ResultSet rs = null;
+        try{
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1,date);
+            stmt.setString(2,selectedItem);
+            
+            rs = stmt.executeQuery();
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return rs;
+    }
 }
