@@ -322,7 +322,7 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfResultActionPerformed
 
     private void CheckBoxLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxLocActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: updated 
         if(CheckBoxLoc.isSelected()){
             jComboBox1.setEnabled(true);
         }else{
