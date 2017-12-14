@@ -46,7 +46,7 @@ public class ScheduledOrderDA {
 
     public ResultSet selectRecord(String date){
         //Query
-        String queryStr = "SELECT * FROM " + tableName + " WHERE  DATE_ORDER = ?";
+        String queryStr = "SELECT OrderNO, customer_id, Date_Order, Address FROM " + tableName + " WHERE  DATE_ORDER = ?";
         ResultSet rs = null;
         try{
             stmt = conn.prepareStatement(queryStr);
@@ -77,5 +77,25 @@ public class ScheduledOrderDA {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         return rs;
+    }
+    
+    public void insert(int orderID,String date, String area, String unit) {
+        String order = Integer.toString(orderID);
+        String id = "lyyao";
+//        String area = "00000016";
+//        String unit = "15-03-PV16";
+        String queryStr = "INSERT INTO FoodOrder VALUES (?,?,?,?,?)";
+ 
+        try {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1, order);
+            stmt.setString(2, id);
+            stmt.setString(3, date);
+            stmt.setString(4, area);
+            stmt.setString(5, unit);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
