@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lgooddatepicker.demo;
+package Client;
 
 import ADT.LScheduledOrder;
 import Entity.ScheduledEntity;
@@ -52,7 +52,6 @@ public class ScheduledOrderDetail extends javax.swing.JFrame {
         
         this.jTable1.setModel(model);
         
-//        detailData = (ScheduledOrderDetailEntity)scheduledOrderDetailList.getDetailRecord(orderID);
         
         
         

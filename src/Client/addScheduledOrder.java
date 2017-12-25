@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lgooddatepicker.demo;
+package Client;
 
 import javax.swing.table.DefaultTableModel;
 import da.ScheduledOrderDA;
 import Entity.ScheduledEntity;
 import Entity.ScheduledOrderDetailEntity;
 import Interface.ScheduledInterface;
-import static com.github.lgooddatepicker.demo.ScheduledOrderDetail.scheduledOrderList;
+import static Client.ScheduledOrderDetail.scheduledOrderList;
 
 /**
  *
@@ -367,26 +367,8 @@ public class addScheduledOrder extends javax.swing.JFrame {
                 String area = jComboBox8.getSelectedItem().toString();
                 String restarant = jComboBox9.getSelectedItem().toString();
                 String status = "pending";
-//                if(area == "PV10" ||area == "PV12" ||area == "PV13" ||area == "PV15" ||area == "PV16" ||area == "PV20" ||area == "PV21"){
-//                    if(area == "PV10"){
-//                        area = "00000010";
-//                    }else if(area == "PV12"){
-//                        area = "00000012";
-//                    }else if(area == "PV13"){
-//                        area = "00000013";
-//                    }else if(area == "PV15"){
-//                        area = "00000015";
-//                    }else if(area == "PV16"){
-//                        area = "00000016";
-//                    }else if(area == "PV20"){
-//                        area = "00000020";
-//                    }else if(area == "PV21"){
-//                        area = "00000021";
-//                    }
-//                }
-//                scheduledOrderDA.insert(OrderNo,DateTime,area,address);
-//                ++OrderNo;
-                  ScheduledEntity addScheduled = new ScheduledEntity(OrderNo,"",DateTime,area,address,status,restarant,"");
+
+                  ScheduledEntity addScheduled = new ScheduledEntity(OrderNo,"yongyao",DateTime,area,address,status,restarant,"");
                   scheduledOrderList.addRecord(addScheduled);
                   
                   if(jCheckBox1.isSelected()){
@@ -421,8 +403,7 @@ public class addScheduledOrder extends javax.swing.JFrame {
                   
                   
                   
-//           int position = scheduledOrderList.getPosition(scheduled.getDeliveryManID());
-//           scheduledOrderList.updateRecord(position, addScheduled);
+
            
                 textField2.setText("Scheduled Order Sucessfully Added\n");                          
             }

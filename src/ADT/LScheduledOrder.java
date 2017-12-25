@@ -5,7 +5,7 @@
  */
 package ADT;
 
-import com.github.lgooddatepicker.demo.ScheduledOrderHome;
+import Client.ScheduledOrderHome;
 import Entity.ScheduledEntity;
 import Entity.ScheduledOrderDetailEntity;
 import Interface.ScheduledInterface;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lgooddatepicker.demo;
+package Client;
 
 import ADT.LScheduledOrder;
 import Entity.ScheduledEntity;
@@ -29,10 +29,17 @@ public class ScheduledOrderHome extends javax.swing.JFrame {
         ScheduledEntity scheduledData2 = new ScheduledEntity("S1001","lyyao","2017-12-28","PV16","15-03-PV16","pending","McDonald","");
         ScheduledOrderDetailEntity DetailData1 = new ScheduledOrderDetailEntity("S1000","Lunch Combo 1","2","20");
         ScheduledOrderDetailEntity DetailData2 = new ScheduledOrderDetailEntity("S1000","Lunch Combo 2","2","20");
+        ScheduledOrderDetailEntity DetailData3 = new ScheduledOrderDetailEntity("S1001","Dinner Combo 1","2","20");
+        ScheduledOrderDetailEntity DetailData4 = new ScheduledOrderDetailEntity("S1001","Dinner Combo 2","2","20");
         scheduledOrderList.addRecord(scheduledData1);
         scheduledOrderList.addRecord(scheduledData2);
+        
         scheduledOrderDetailList.addRecord(DetailData1);
         scheduledOrderDetailList.addRecord(DetailData2);
+        
+        scheduledOrderDetailList.addRecord(DetailData3);
+        scheduledOrderDetailList.addRecord(DetailData4);
+        
         System.out.println(scheduledOrderList);
         System.out.println(scheduledOrderDetailList);
         

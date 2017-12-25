@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.lgooddatepicker.demo;
+package Client;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -11,8 +11,8 @@ import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 import com.github.lgooddatepicker.components.TimePickerSettings.TimeArea;
-import static com.github.lgooddatepicker.demo.FullDemo.datePicker1;
-import static com.github.lgooddatepicker.demo.FullDemo.rowMultiplier;
+//import static com.github.lgooddatepicker.demo.FullDemo.datePicker1;
+//import static com.github.lgooddatepicker.demo.FullDemo.rowMultiplier;
 import com.github.lgooddatepicker.zinternaltools.InternalUtilities;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -251,83 +251,7 @@ public class ScheduledOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_ViewOrderMouseClicked
 
     private void ViewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewOrderActionPerformed
-        //        if(datePicker1.toString() == ""){
-            //            jtfResult.setText("Warning PLease Select A Date\n");
-            //        }else
-        //        if(CheckBoxLoc.isSelected()){
-            //            String DateTime = datePicker1.toString();
-            //        //String[] Date = DateTime.split("T");
-            //
-            //        //SimpleDateFormat firstFormatter = new SImpleDateFormat("yyyy-mm-dd")
-            //
-            //
-            //        //jtfResult.setText("Selected order: " + Date[0] + "\n" + Date[1]);
-            //        jtfResult.setText("Selected order group by location: " + DateTime + "\n");
-            //        String selectedItem = (String) jComboBox1.getSelectedItem();
-            //        //ResultSet rs = scheduledOrderDA.selectRecord(Date[0]);
-            //        ResultSet rs = scheduledOrderDA.selectRecordWithLocation(DateTime,selectedItem);
-            //
-            //        String[] tableColumnsName ={"OrderID", "CustomerID" , "Date", "Area", "Address"};
-            //        DefaultTableModel mode = (DefaultTableModel) jTable1.getModel();
-            //        mode.setColumnIdentifiers(tableColumnsName);
-            //        mode.setRowCount(0);
-            //
-            //        try {
-                //                ResultSetMetaData rsmd = rs.getMetaData();
-                //
-                //                    int colNo = rsmd.getColumnCount();
-                //                    while(rs.next()){
-                    //                        Object[] objects = new Object[colNo];
-                    //
-                    //                         for(int i = 0; i < colNo; i++){
-                        //                            objects[i] = rs.getObject(i+1);
-                        //                        }
-                    //
-                    //                        mode.addRow(objects);
-                    //                    }
-                //                    jTable1.setModel(mode);
-                //
-                //            } catch (SQLException ex) {
-                //                //Logger.getLogger(Attendence.class.getName()).log(Level.SEVERE, null, ex);
-                //            }
-            //        }else{
-            //            String DateTime = datePicker1.toString();
-            //        //String[] Date = DateTime.split("T");
-            //
-            //        //SimpleDateFormat firstFormatter = new SImpleDateFormat("yyyy-mm-dd")
-            //
-            //
-            //        //jtfResult.setText("Selected order: " + Date[0] + "\n" + Date[1]);
-            //        jtfResult.setText("Selected order: " + DateTime + "\n");
-            //
-            //        //ResultSet rs = scheduledOrderDA.selectRecord(Date[0]);
-            //        ResultSet rs = scheduledOrderDA.selectRecord(DateTime);
-            //
-            //        String[] tableColumnsName ={"OrderID", "CustomerID" , "Date", "Address"};
-            //        DefaultTableModel mode = (DefaultTableModel) jTable1.getModel();
-            //        mode.setColumnIdentifiers(tableColumnsName);
-            //        mode.setRowCount(0);
-            //
-            //        try {
-                //                ResultSetMetaData rsmd = rs.getMetaData();
-                //
-                //                    int colNo = rsmd.getColumnCount();
-                //                    while(rs.next()){
-                    //                        Object[] objects = new Object[colNo];
-                    //
-                    //                         for(int i = 0; i < colNo; i++){
-                        //                            objects[i] = rs.getObject(i+1);
-                        //                        }
-                    //
-                    //                        mode.addRow(objects);
-                    //                    }
-                //                    jTable1.setModel(mode);
-                //
-                //            } catch (SQLException ex) {
-                //                //Logger.getLogger(Attendence.class.getName()).log(Level.SEVERE, null, ex);
-                //            }
-            //        }
-
+   
         if(datePicker1.toString() == ""){
             jtfResult.setText("Warning PLease Select A Date\n");
         }else
@@ -355,6 +279,7 @@ public class ScheduledOrder extends javax.swing.JFrame {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         datePicker1.clear();
+        textField1.setText(" ");
         jtfResult.setText("Reset selection");
         jTable1.setModel(new DefaultTableModel());
     }//GEN-LAST:event_jButton2MouseClicked

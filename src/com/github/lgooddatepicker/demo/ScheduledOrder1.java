@@ -1,5 +1,7 @@
 package com.github.lgooddatepicker.demo;
 
+import Client.ScheduledOrderHome;
+import Client.ScheduledOrderDetail;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.DateTimePicker;
