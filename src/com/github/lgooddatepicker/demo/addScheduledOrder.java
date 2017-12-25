@@ -7,21 +7,30 @@ package com.github.lgooddatepicker.demo;
 
 import javax.swing.table.DefaultTableModel;
 import da.ScheduledOrderDA;
+import Entity.ScheduledEntity;
+import Entity.ScheduledOrderDetailEntity;
+import Interface.ScheduledInterface;
+import static com.github.lgooddatepicker.demo.ScheduledOrderDetail.scheduledOrderList;
 
 /**
  *
  * @author Asus
  */
 public class addScheduledOrder extends javax.swing.JFrame {
-    ScheduledOrderDA scheduledOrderDA = new ScheduledOrderDA();
-    int OrderNo = 1703310024;
+//    ScheduledOrderDA scheduledOrderDA = new ScheduledOrderDA();
+    public static ScheduledInterface<ScheduledEntity> scheduledOrderList = ScheduledOrderHome.scheduledOrderList;
+    public static ScheduledInterface<ScheduledOrderDetailEntity> scheduledOrderDetailList = ScheduledOrderHome.scheduledOrderDetailList;
+    
+    private ScheduledEntity scheduled;
+    private ScheduledOrderDetailEntity scheduledDetail;
+    String OrderNo = null;
 
     /**
      * Creates new form addScheduledOrder
      */
     public addScheduledOrder() {
         initComponents();
-        
+        this.setTitle("Add Scheduled Order");
         
     }
 
@@ -36,6 +45,7 @@ public class addScheduledOrder extends javax.swing.JFrame {
 
         datePickerBeanInfo1 = new com.github.lgooddatepicker.components.DatePickerBeanInfo();
         datePickerBeanInfo2 = new com.github.lgooddatepicker.components.DatePickerBeanInfo();
+        button1 = new java.awt.Button();
         datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
@@ -62,6 +72,12 @@ public class addScheduledOrder extends javax.swing.JFrame {
         label8 = new java.awt.Label();
         jComboBox8 = new javax.swing.JComboBox<>();
         textField2 = new java.awt.TextField();
+        cancel = new java.awt.Button();
+        jComboBox9 = new javax.swing.JComboBox<>();
+        label9 = new java.awt.Label();
+        label10 = new java.awt.Label();
+
+        button1.setLabel("button1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,6 +123,7 @@ public class addScheduledOrder extends javax.swing.JFrame {
         });
 
         jCheckBox4.setText("Order This");
+        jCheckBox4.setEnabled(false);
         jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox4ActionPerformed(evt);
@@ -135,6 +152,7 @@ public class addScheduledOrder extends javax.swing.JFrame {
         label5.setText("Dinner Combo 2");
 
         jCheckBox5.setText("Order This");
+        jCheckBox5.setEnabled(false);
         jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox5ActionPerformed(evt);
@@ -142,6 +160,7 @@ public class addScheduledOrder extends javax.swing.JFrame {
         });
 
         jCheckBox6.setText("Order This");
+        jCheckBox6.setEnabled(false);
         jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox6ActionPerformed(evt);
@@ -165,71 +184,111 @@ public class addScheduledOrder extends javax.swing.JFrame {
 
         label8.setText("Area");
 
+        jComboBox8.setMaximumRowCount(3);
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PV10", "PV12", "PV13", "PV15", "PV16", "PV20", "PV21" }));
+
+        cancel.setLabel("BACK");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+
+        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GoldenLeaf Restaurant", "HomeTown Restaurant", "Nandos", "4Finger", "Korean Delight" }));
+        jComboBox9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox9ActionPerformed(evt);
+            }
+        });
+
+        label9.setText("Select Scheduled Order Date: ");
+
+        label10.setText("Select Restarant: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtfAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(10, 10, 10))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jCheckBox3)
-                    .addComponent(jCheckBox4)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox5)
-                    .addComponent(jCheckBox6))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                            .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jCheckBox3)
+                            .addComponent(jCheckBox4)
+                            .addComponent(jCheckBox1)
+                            .addComponent(jCheckBox2)
+                            .addComponent(jCheckBox5)
+                            .addComponent(jCheckBox6))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jComboBox9, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(5, 5, 5)
+                .addComponent(label9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jCheckBox1)
@@ -275,8 +334,10 @@ public class addScheduledOrder extends javax.swing.JFrame {
                     .addComponent(jtfAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(20, 20, 20)
-                .addComponent(textField2, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -287,36 +348,83 @@ public class addScheduledOrder extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
+         ScheduledEntity lastData = scheduledOrderList.getLastData();
+         String tempOrderID = lastData.getOrderID();
+         String[] part = tempOrderID.split("S");
+         int lastOrderID = Integer.parseInt(part[1]);
+         lastOrderID++;
+         OrderNo = "S" + Integer.toString(lastOrderID);
+         
         if(datePicker1.toString() == ""){
             textField2.setText("Warning PLease Select A Date\n");
         }else{
-            if(jtfAddress.getText() == null){
+            if(jtfAddress.getText().equals("")){
             textField2.setText("Warning PLease insert your unit\n");
-        }else{
+            }else{
                 String DateTime = datePicker1.toString();
-        String address = jtfAddress.getText();
-        
-        String area = jComboBox8.getSelectedItem().toString();
-        if(area == "PV10" ||area == "PV12" ||area == "PV13" ||area == "PV15" ||area == "PV16" ||area == "PV20" ||area == "PV21"){
-            if(area == "PV10"){
-                area = "00000010";
-            }else if(area == "PV12"){
-                area = "00000012";
-            }else if(area == "PV13"){
-                area = "00000013";
-            }else if(area == "PV15"){
-                area = "00000015";
-            }else if(area == "PV16"){
-                area = "00000016";
-            }else if(area == "PV20"){
-                area = "00000020";
-            }else if(area == "PV21"){
-                area = "00000021";
-            }
-        }
-        scheduledOrderDA.insert(OrderNo,DateTime,area,address);
-        ++OrderNo;
-        textField2.setText("Scheduled Order Sucessfully Added\n");
+                String address = jtfAddress.getText();
+
+                String area = jComboBox8.getSelectedItem().toString();
+                String restarant = jComboBox9.getSelectedItem().toString();
+                String status = "pending";
+//                if(area == "PV10" ||area == "PV12" ||area == "PV13" ||area == "PV15" ||area == "PV16" ||area == "PV20" ||area == "PV21"){
+//                    if(area == "PV10"){
+//                        area = "00000010";
+//                    }else if(area == "PV12"){
+//                        area = "00000012";
+//                    }else if(area == "PV13"){
+//                        area = "00000013";
+//                    }else if(area == "PV15"){
+//                        area = "00000015";
+//                    }else if(area == "PV16"){
+//                        area = "00000016";
+//                    }else if(area == "PV20"){
+//                        area = "00000020";
+//                    }else if(area == "PV21"){
+//                        area = "00000021";
+//                    }
+//                }
+//                scheduledOrderDA.insert(OrderNo,DateTime,area,address);
+//                ++OrderNo;
+                  ScheduledEntity addScheduled = new ScheduledEntity(OrderNo,"",DateTime,area,address,status,restarant,"");
+                  scheduledOrderList.addRecord(addScheduled);
+                  
+                  if(jCheckBox1.isSelected()){
+                      ScheduledOrderDetailEntity addScheduledDetail = new ScheduledOrderDetailEntity(OrderNo,"Lunch Combo 1",(String)jComboBox2.getSelectedItem(),"20");
+                  scheduledOrderDetailList.addRecord(addScheduledDetail);
+                  }
+                  
+                  if(jCheckBox2.isSelected()){
+                      ScheduledOrderDetailEntity addScheduledDetail = new ScheduledOrderDetailEntity(OrderNo,"Lunch Combo 2",(String)jComboBox3.getSelectedItem(),"23");
+                  scheduledOrderDetailList.addRecord(addScheduledDetail);
+                  }
+                  
+                  if(jCheckBox3.isSelected()){
+                      ScheduledOrderDetailEntity addScheduledDetail = new ScheduledOrderDetailEntity(OrderNo,"Lunch Combo 3",(String)jComboBox4.getSelectedItem(),"25");
+                  scheduledOrderDetailList.addRecord(addScheduledDetail);
+                  }
+                  
+                  if(jCheckBox4.isSelected()){
+                      ScheduledOrderDetailEntity addScheduledDetail = new ScheduledOrderDetailEntity(OrderNo,"Dinner Combo 1",(String)jComboBox5.getSelectedItem(),"20");
+                  scheduledOrderDetailList.addRecord(addScheduledDetail);
+                  }
+                  
+                  if(jCheckBox5.isSelected()){
+                      ScheduledOrderDetailEntity addScheduledDetail = new ScheduledOrderDetailEntity(OrderNo,"Dinner Combo 2",(String)jComboBox6.getSelectedItem(),"25");
+                  scheduledOrderDetailList.addRecord(addScheduledDetail);
+                  }
+                  
+                  if(jCheckBox6.isSelected()){
+                      ScheduledOrderDetailEntity addScheduledDetail = new ScheduledOrderDetailEntity(OrderNo,"Dinner Combo 3",(String)jComboBox7.getSelectedItem(),"27");
+                  scheduledOrderDetailList.addRecord(addScheduledDetail);
+                  }
+                  
+                  
+                  
+//           int position = scheduledOrderList.getPosition(scheduled.getDeliveryManID());
+//           scheduledOrderList.updateRecord(position, addScheduled);
+           
+                textField2.setText("Scheduled Order Sucessfully Added\n");                          
             }
             
         }
@@ -360,7 +468,21 @@ public class addScheduledOrder extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+        if(jComboBox1.getSelectedItem().equals("Afternoon")){
+            jCheckBox1.setEnabled(true);
+            jCheckBox2.setEnabled(true);
+            jCheckBox3.setEnabled(true);
+            jCheckBox4.setEnabled(false);
+            jCheckBox5.setEnabled(false);
+            jCheckBox6.setEnabled(false);
+        }else{
+            jCheckBox1.setEnabled(false);
+            jCheckBox2.setEnabled(false);
+            jCheckBox3.setEnabled(false);
+            jCheckBox4.setEnabled(true);
+            jCheckBox5.setEnabled(true);
+            jCheckBox6.setEnabled(true);
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
@@ -374,6 +496,14 @@ public class addScheduledOrder extends javax.swing.JFrame {
     private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox7ActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void jComboBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,6 +541,8 @@ public class addScheduledOrder extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Button button1;
+    private java.awt.Button cancel;
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private com.github.lgooddatepicker.components.DatePickerBeanInfo datePickerBeanInfo1;
     private com.github.lgooddatepicker.components.DatePickerBeanInfo datePickerBeanInfo2;
@@ -429,8 +561,10 @@ public class addScheduledOrder extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JComboBox<String> jComboBox8;
+    private javax.swing.JComboBox<String> jComboBox9;
     private java.awt.TextField jtfAddress;
     private java.awt.Label label1;
+    private java.awt.Label label10;
     private java.awt.Label label2;
     private java.awt.Label label3;
     private java.awt.Label label4;
@@ -438,6 +572,7 @@ public class addScheduledOrder extends javax.swing.JFrame {
     private java.awt.Label label6;
     private java.awt.Label label7;
     private java.awt.Label label8;
+    private java.awt.Label label9;
     private java.awt.TextField textField2;
     // End of variables declaration//GEN-END:variables
 

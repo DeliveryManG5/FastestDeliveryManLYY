@@ -26,11 +26,15 @@ import java.sql.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.*;
-
-import da.ScheduledOrderDA;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import ADT.LScheduledOrder;
+import Entity.ScheduledEntity;
+import Interface.ScheduledInterface;
+import TableModel.ActiveTableModel;
+//
+//import da.ScheduledOrderDA;
+//import java.net.URL;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -43,13 +47,18 @@ import java.util.logging.Logger;
  */
 public class ScheduledOrder1 extends javax.swing.JFrame {
     
-    ScheduledOrderDA scheduledOrderDA = new ScheduledOrderDA();
+//    ScheduledOrderDA scheduledOrderDA = new ScheduledOrderDA();
+    
+    public static ScheduledInterface<ScheduledEntity> scheduledOrderList = ScheduledOrderHome.scheduledOrderList;
+    private ScheduledInterface<ScheduledEntity> activeList = new LScheduledOrder<>();
+    private ActiveTableModel model;
 
     /**
      * Creates new form ScheduledOrder1
      */
     public ScheduledOrder1() {
         initComponents();
+        
         
         
     
@@ -89,6 +98,10 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
         datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
         CheckBoxLoc = new javax.swing.JCheckBox();
         jComboBox1 = new javax.swing.JComboBox<>();
+        cancel = new java.awt.Button();
+        label1 = new java.awt.Label();
+        textField1 = new java.awt.TextField();
+        jButton3 = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -137,20 +150,20 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Order ID", "Customer ID", "Date", "Address"
+                "Order ID", "Customer ID", "Date", "Address", "Restarant", "Delivery Staff", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -169,29 +182,60 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PV10", "PV12", "PV13", "PV15", "PV16", "PV20", "PV21" }));
         jComboBox1.setEnabled(false);
 
+        cancel.setLabel("Cancel");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+
+        label1.setText("Enter Order ID to view order detail:");
+
+        jButton3.setText("View Order Detail");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(CheckBoxLoc)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ViewOrder)))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cancel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfResult, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(CheckBoxLoc)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ViewOrder))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))
+                        .addGap(0, 158, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,8 +252,17 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jtfResult, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)
+                        .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -220,81 +273,104 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
     
     
     private void ViewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewOrderActionPerformed
+//        if(datePicker1.toString() == ""){
+//            jtfResult.setText("Warning PLease Select A Date\n");
+//        }else
+//        if(CheckBoxLoc.isSelected()){
+//            String DateTime = datePicker1.toString();
+//        //String[] Date = DateTime.split("T");
+//        
+//        //SimpleDateFormat firstFormatter = new SImpleDateFormat("yyyy-mm-dd")
+//        
+//        
+//        //jtfResult.setText("Selected order: " + Date[0] + "\n" + Date[1]);
+//        jtfResult.setText("Selected order group by location: " + DateTime + "\n");
+//        String selectedItem = (String) jComboBox1.getSelectedItem();
+//        //ResultSet rs = scheduledOrderDA.selectRecord(Date[0]);
+//        ResultSet rs = scheduledOrderDA.selectRecordWithLocation(DateTime,selectedItem);
+//        
+//        String[] tableColumnsName ={"OrderID", "CustomerID" , "Date", "Area", "Address"};
+//        DefaultTableModel mode = (DefaultTableModel) jTable1.getModel();
+//        mode.setColumnIdentifiers(tableColumnsName);
+//        mode.setRowCount(0);
+//        
+//        try {                   
+//                ResultSetMetaData rsmd = rs.getMetaData();
+//                
+//                    int colNo = rsmd.getColumnCount();
+//                    while(rs.next()){
+//                        Object[] objects = new Object[colNo];
+//                        
+//                         for(int i = 0; i < colNo; i++){
+//                            objects[i] = rs.getObject(i+1);
+//                        }
+//                        
+//                        mode.addRow(objects);
+//                    }
+//                    jTable1.setModel(mode);
+//
+//            } catch (SQLException ex) {
+//                //Logger.getLogger(Attendence.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }else{
+//            String DateTime = datePicker1.toString();
+//        //String[] Date = DateTime.split("T");
+//        
+//        //SimpleDateFormat firstFormatter = new SImpleDateFormat("yyyy-mm-dd")
+//        
+//        
+//        //jtfResult.setText("Selected order: " + Date[0] + "\n" + Date[1]);
+//        jtfResult.setText("Selected order: " + DateTime + "\n");
+//        
+//        //ResultSet rs = scheduledOrderDA.selectRecord(Date[0]);
+//        ResultSet rs = scheduledOrderDA.selectRecord(DateTime);
+//        
+//        String[] tableColumnsName ={"OrderID", "CustomerID" , "Date", "Address"};
+//        DefaultTableModel mode = (DefaultTableModel) jTable1.getModel();
+//        mode.setColumnIdentifiers(tableColumnsName);
+//        mode.setRowCount(0);
+//        
+//        try {                   
+//                ResultSetMetaData rsmd = rs.getMetaData();
+//                
+//                    int colNo = rsmd.getColumnCount();
+//                    while(rs.next()){
+//                        Object[] objects = new Object[colNo];
+//                        
+//                         for(int i = 0; i < colNo; i++){
+//                            objects[i] = rs.getObject(i+1);
+//                        }
+//                        
+//                        mode.addRow(objects);
+//                    }
+//                    jTable1.setModel(mode);
+//
+//            } catch (SQLException ex) {
+//                //Logger.getLogger(Attendence.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+
         if(datePicker1.toString() == ""){
             jtfResult.setText("Warning PLease Select A Date\n");
         }else
         if(CheckBoxLoc.isSelected()){
             String DateTime = datePicker1.toString();
-        //String[] Date = DateTime.split("T");
+            jtfResult.setText("Selected order group by location: " + DateTime + "\n");
+            String selectedItem = (String) jComboBox1.getSelectedItem();
+            activeList = scheduledOrderList.getActiveRecord(DateTime,selectedItem);
+            System.out.println(activeList);
+            model = new ActiveTableModel(activeList);
+            this.jTable1.setModel(model);
         
-        //SimpleDateFormat firstFormatter = new SImpleDateFormat("yyyy-mm-dd")
-        
-        
-        //jtfResult.setText("Selected order: " + Date[0] + "\n" + Date[1]);
-        jtfResult.setText("Selected order group by location: " + DateTime + "\n");
-        String selectedItem = (String) jComboBox1.getSelectedItem();
-        //ResultSet rs = scheduledOrderDA.selectRecord(Date[0]);
-        ResultSet rs = scheduledOrderDA.selectRecordWithLocation(DateTime,selectedItem);
-        
-        String[] tableColumnsName ={"OrderID", "CustomerID" , "Date", "Area", "Address"};
-        DefaultTableModel mode = (DefaultTableModel) jTable1.getModel();
-        mode.setColumnIdentifiers(tableColumnsName);
-        mode.setRowCount(0);
-        
-        try {                   
-                ResultSetMetaData rsmd = rs.getMetaData();
-                
-                    int colNo = rsmd.getColumnCount();
-                    while(rs.next()){
-                        Object[] objects = new Object[colNo];
-                        
-                         for(int i = 0; i < colNo; i++){
-                            objects[i] = rs.getObject(i+1);
-                        }
-                        
-                        mode.addRow(objects);
-                    }
-                    jTable1.setModel(mode);
-
-            } catch (SQLException ex) {
-                //Logger.getLogger(Attendence.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }else{
             String DateTime = datePicker1.toString();
-        //String[] Date = DateTime.split("T");
+            jtfResult.setText("Selected order: " + DateTime + "\n");
+            activeList = scheduledOrderList.getActiveRecord(DateTime);
+            System.out.println(activeList);
+            model = new ActiveTableModel(activeList);
         
-        //SimpleDateFormat firstFormatter = new SImpleDateFormat("yyyy-mm-dd")
         
-        
-        //jtfResult.setText("Selected order: " + Date[0] + "\n" + Date[1]);
-        jtfResult.setText("Selected order: " + DateTime + "\n");
-        
-        //ResultSet rs = scheduledOrderDA.selectRecord(Date[0]);
-        ResultSet rs = scheduledOrderDA.selectRecord(DateTime);
-        
-        String[] tableColumnsName ={"OrderID", "CustomerID" , "Date", "Address"};
-        DefaultTableModel mode = (DefaultTableModel) jTable1.getModel();
-        mode.setColumnIdentifiers(tableColumnsName);
-        mode.setRowCount(0);
-        
-        try {                   
-                ResultSetMetaData rsmd = rs.getMetaData();
-                
-                    int colNo = rsmd.getColumnCount();
-                    while(rs.next()){
-                        Object[] objects = new Object[colNo];
-                        
-                         for(int i = 0; i < colNo; i++){
-                            objects[i] = rs.getObject(i+1);
-                        }
-                        
-                        mode.addRow(objects);
-                    }
-                    jTable1.setModel(mode);
-
-            } catch (SQLException ex) {
-                //Logger.getLogger(Attendence.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        this.jTable1.setModel(model);
         }
         
         
@@ -332,6 +408,21 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_CheckBoxLocActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+//        String tempOrderID = null;
+//        tempOrderID = textField1.getText();
+//        ScheduledOrderDetail.main(textField1);
+        new ScheduledOrderDetail(textField1.getText()).setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     
     
@@ -389,11 +480,13 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
     private javax.swing.JCheckBox CheckBoxLoc;
     private javax.persistence.EntityManager OrderDbPUEntityManager;
     private javax.swing.JButton ViewOrder;
+    private java.awt.Button cancel;
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private com.github.lgooddatepicker.components.DatePickerBeanInfo datePickerBeanInfo1;
     private com.github.lgooddatepicker.components.DatePickerBeanInfo datePickerBeanInfo2;
     private com.github.lgooddatepicker.components.DateTimePickerBeanInfo dateTimePickerBeanInfo1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -401,6 +494,7 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private java.awt.TextField jtfResult;
+    private java.awt.Label label1;
     private com.privatejgoodies.forms.layout.LayoutMap layoutMap1;
     private java.util.List<com.github.lgooddatepicker.demo.Location> locationList;
     private java.util.List<com.github.lgooddatepicker.demo.Location> locationList1;
@@ -409,6 +503,7 @@ public class ScheduledOrder1 extends javax.swing.JFrame {
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.MenuBar menuBar1;
+    private java.awt.TextField textField1;
     // End of variables declaration//GEN-END:variables
 
     private void jButton2MouseClicked(ActionEvent evt) {
